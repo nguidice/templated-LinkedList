@@ -1,0 +1,68 @@
+#include <iostream>
+
+using namespace std;
+
+ template <typename T> GLL<T> :: bool isEmpty(){ //Returns true if the GLL is empty, false if it is not empty
+   if (head == nullptr){ //If head = nullptr then the list if empty
+     return true;
+   }
+   else{
+     return false; //If not it is not empty
+   }
+ }
+   template <typename T> GLL<T> :: bool flush(){ //Empties out the GLL by deleting all of its elements. Basically does what the destructor should do, but allows it to be called from the public interface
+     if (head != nullptr){ //Check to see if trying to defrence nullptr
+       
+       GLLNode<T>* curr = head; //make temp variable = to head
+       
+       while (curr != nullptr){ //make sure you do not go out of the bounds of the linked list
+	  
+	 GLLNode<T>* temp = curr; // set temp = curr so curr can be defrenced without losing the location of the linked list
+	 curr = curr->next; // increment thrugh the list
+	  
+	 delete temp; // delete temp
+	  
+	 }
+       return true; //return true if list is succsfully flushed
+     }
+     else{
+       return false; //return false if tried to derefrence nullptr
+   }
+     template <typename T> GLL<T> :: bool prepend(const T &Data){ //Adds a copy of the item passed as a parameter to the front of the list, Returns false if the item cannot be added to the list
+       if(head != nullptr){ //check that head isn't nullptr
+	 head = new GLLNode<T>(Data); // create a new node using the data passed in by refrence and set head to it
+	 head -> next -> prev = head; // set the head's next pointer previous pointer (I.E The prev pointer of the next node) to head 
+
+	 return true;
+       }
+       else {
+	 return false;
+       }
+     }
+  bool append(const T &Data); //Adds a copy of the item passed as a parameter to the back of the list  Returns false if the item cannot be added to the list.
+
+  bool merge(GLL &other); //Adds the values of the GLL passed (by reference) as a parameter, to the end of the list, leaving "other" empty. Returns true. If an object is merged into itself, then the function should not take any action. 
+
+  GLL &operator+=(const GLL &other); //Adds copies of the values of the GLL passed (by reference) as a parameter, to the end of the list, leaving "other" intact.
+                                     //Returns a reference to the current object (i.e. the object that is called... use "return *this;").
+                                     //Calling "list += list;" cannot both add the list to the left hand side and leave that same list in tact,
+                                     //so this operation should instead leave list unchanged. You may simply implement this as "if (this == &other) return *this;"
+
+  GLL &operator-=(const GLL&other); //Removes all values that are contained in other, from the list that is called, leaving other intact. Returns a reference to the current object (i.e. the object that is called).
+                                    //Passing an object to its own -= operator should not change the object (because it cannot simultaneously remove elements from the list and leave that same list intact.)
+
+  int purgeGoofy(); //Removes all the items from the GLL that are goofy, leaving only non-goofy items. Returns a count of the number of items that were removed.
+
+  int keepGoofy(); //Removes all the items from the GLL that are not goofy, leaving only goofy items. Returns a count of the number of items that were removed.
+
+  bool demoteGoofy(); //Moves all goofy items (if any) to the back of the list, so that the list contains all of its non-goofy items first, then it's goofy items.
+
+  bool reset(); //Sets a "pointer" within the object to the first node of the linked list. This operation returns true if the list is non-empty, and false otherwise.
+
+  bool finished(); //Returns true if there are "no more" items to go through in the list, false if there are more items.
+
+  T proceed(); //Returns a copy of the "next" object from the linked list. So a call to reset() followed by a call to proceed() returns a copy of the first element of a (non-empty) GLL.
+               //Subsequent calls to proceed() return the subsequent items in the list.
+               //When it becomes true that the last item was returned on the previous call to proceed(), and no subsequent "reset()" is performed, then proceed() should return an item created with its default constructor.
+
+  
