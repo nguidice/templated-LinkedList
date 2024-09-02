@@ -1,2 +1,2 @@
 # template-LinkedList
-Designed a templated linked list with multiple test functions in C++
+Developed a generic linked list class template using C++ to support various data types, testing code reusability and type safety
